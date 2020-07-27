@@ -1,34 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-
 import {
-  Route,
-  NavLink,
-  Switch,
-} from 'react-router-dom';
-
-import List from './components/List';
-import Detail from './components/Detail';
+  Nav,
+  NavItem,
+  Page,
+  PageHeader,
+  PageHeaderTools,
+  PageSidebar,
+  PageSection,
+  PageSectionVariants,
+} from '@patternfly/react-core';
+import { Link } from 'react-router-dom';
 
 function App() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isActiveItem, setIsActiveItem] = useState(0);
+
+  const onNavToggle = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  const onSelect = (result) => {
+    setIsActiveItem(result.itemId);
+  };
+
+  const logoProps = {
+    href: 'https://patternfly.org',
+    target: '_blank',
+  };
+
+  const Header = (
+    <PageHeader
+      logo="Logo"
+      logoProps={logoProps}
+      headerTools={<PageHeaderTools>header-tools</PageHeaderTools>}
+      showNavToggle
+      isNavOpen={isNavOpen}
+      onNavToggle={onNavToggle}
+    />
+  );
+
+  const PageNav = (
+    <Nav onSelect={onSelect} aria-label="Nav">
+      <NavItem itemId={0} isActive={isActiveItem === 0}>
+        <Link key="0" to="/react-app-one">
+          React app one
+        </Link>
+      </NavItem>
+      <NavItem itemId={1} isActive={isActiveItem === 1}>
+        <Link key="1" to="/react-app-two">
+          React app two
+        </Link>
+      </NavItem>
+    </Nav>
+  );
+
+  const Sidebar = <PageSidebar nav={PageNav} isNavOpen={isNavOpen} />;
+
   return (
-    <div id="react-main-app">
-      <div className="container">
-        <h1><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" width="50" height="50" alt="React logo"/> React App</h1>
-        <hr/>
-        <p>
-          This will be the layout.
-        </p>
-        <nav id="links">
-          <NavLink to="/" activeClassName="active" exact="true">List</NavLink>
-          <NavLink to="/detail" activeClassName="active" exact="true">Detail</NavLink>
-        </nav>
-        <Switch>
-          <Route exact path="/" component={List} />
-          <Route path="/detail" component={Detail} />
-        </Switch>
-      </div>
-    </div>
+    <Page header={Header} sidebar={Sidebar}>
+      <PageSection variant={PageSectionVariants.darker}>Section with darker background</PageSection>
+    </Page>
   );
 }
 
