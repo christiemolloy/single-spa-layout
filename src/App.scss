@@ -1,24 +1,22 @@
-#react-main-app{
-  div#container {
-    display: flex;
-    flex-grow: 1;
-    height: 100%;
-  }
+div#container {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}
 
-  nav#links{
-    background-color: #212427;
-    width: 250px;
+nav#links{
+  background-color: #212427;
+  width: 250px;
 
-    a{
-      color: white;
+  a{
+    color: white;
 
-      &:hover {
-        background-color: #3c3f42;
-      }
+    &:hover {
+      background-color: #3c3f42;
     }
   }
+}
 
-  div#main {
-    background-color: #03030352;
-  }
+div#main {
+  background-color: #03030352;
 }
