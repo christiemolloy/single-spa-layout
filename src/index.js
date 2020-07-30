@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 export default class Root extends React.Component {
   render() {
     return (
-      <BrowserRouter basename="/react">
+      <BrowserRouter basename="/">
         <App />
       </BrowserRouter>
     );

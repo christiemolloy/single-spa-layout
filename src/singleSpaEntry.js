@@ -8,7 +8,7 @@ const reactLifecycles = singleSpaReact({
   React,
   ReactDOM,
   rootComponent,
-  domElementGetter: () => document.getElementById('react-app'),
+  domElementGetter: () => document.getElementById('layout'),
 });
 export const { bootstrap } = reactLifecycles;
 export const { mount } = reactLifecycles;
